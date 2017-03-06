@@ -5,6 +5,8 @@ This package generates a nodejs or angularjs class from a [swagger specification
 
 The typescript generator is based on [superagent](https://github.com/visionmedia/superagent) and can be used for both nodejs and the browser via browserify/webpack.
 
+This code generator also supports [OpenWhisk actions](http://openwhisk.org/).
+
 ##Installation
 ```bash
 npm install swagger-js-codegen
@@ -20,9 +22,11 @@ var swagger = JSON.parse(fs.readFileSync(file, 'UTF-8'));
 var nodejsSourceCode = CodeGen.getNodeCode({ className: 'Test', swagger: swagger });
 var angularjsSourceCode = CodeGen.getAngularCode({ className: 'Test', swagger: swagger });
 var tsSourceCode = CodeGen.getTypescriptCode({ className: 'Test', swagger: swagger, imports: ['../../typings/tsd.d.ts'] });
+var owSourceCode = CodeGen.getOpenWhiskCode({ className: 'Test', swagger: swagger});
 console.log(nodejsSourceCode);
 console.log(angularjsSourceCode);
 console.log(tsSourceCode);
+console.log(owSourceCode);
 ```
 
 ##Custom template
