@@ -1,5 +1,5 @@
 {
-  "name": "swagger-js-codegen-openwhisk",
+  "name": "swagger-openwhisk-codegen",
   "main": "./lib/codegen.js",
   "version": "1.8.0",
   "description": "A Swagger codegen for JavaScript",
@@ -8,11 +8,11 @@
     "clean": "rm -rf tmp-*"
   },
   "bugs": {
-    "url": "https://github.com/wcandillon/swagger-js-codegen/issues"
+    "url": "https://github.com/lionelvillard/swagger-js-codegen/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/wcandillon/swagger-js-codegen.git"
+    "url": "git://github.com/lionelvillard/swagger-js-codegen.git"
   },
   "keywords": [
     "swagger",
