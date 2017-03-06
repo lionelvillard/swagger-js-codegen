@@ -28,7 +28,7 @@
       "name": "Lionel Villard",
       "email": "villard@us.ibm.com"
     }
-  ]
+  ],
   "license": "Apache-2.0",
   "homepage": "https://github.com/lionelvillard/swagger-js-codegen",
   "dependencies": {
