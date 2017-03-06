@@ -5,8 +5,9 @@
  * @method
  * @name {{&className}}#{{&methodName}}
 {{#parameters}}
-{{^isSingleton}} * @param {{=<% %>=}}{<%&type%>}<%={{ }}=%> {{&camelCaseName}} - {{&description}}{{/isSingleton}}
+{{^isSingleton}} * @param {{=<% %>=}}{<%&type%>}<%={{ }}=%> {{^required}}[{{/required}}{{&camelCaseName}}{{^required}}]{{/required}} - {{&description}}{{/isSingleton}}
 {{/parameters}}
+{{#isSecure}} * @param {string} access_token - The oauth access token {{/isSecure}}
  *
  */
 var request = require('request-promise-native');
@@ -19,12 +20,11 @@ var request = require('request-promise-native');
     var form = {};
 
     {{#isSecure}}
-        if (this.token.isQuery) {
-            queryParameters[this.token.headerOrQueryName] = this.token.value;
-        } else if (this.token.headerOrQueryName) {
-            headers[this.token.headerOrQueryName] = this.token.value;
+        if (args.access_token) {
+            headers['Authorization'] = 'Token ' + args.access_token;
         } else {
-            headers['Authorization'] = 'Bearer ' + this.token.value;
+            reject({error: 'Missing authorization.'});
+            return;
         }
     {{/isSecure}}
 
@@ -54,9 +54,6 @@ var request = require('request-promise-native');
             {{/isSingleton}}
         {{/isQueryParameter}}
 
-        {{#isPathParameter}}
-            path = path.replace('{{=<% %>=}}{<%&name%>}<%={{ }}=%>', parameters['{{&camelCaseName}}']);
-        {{/isPathParameter}}
 
         {{#isHeaderParameter}}
             {{#isSingleton}}
@@ -92,6 +89,10 @@ var request = require('request-promise-native');
             return;
         }
         {{/required}}
+
+        {{#isPathParameter}}
+            path = path.replace('{{=<% %>=}}{<%&name%>}<%={{ }}=%>', parameters['{{&camelCaseName}}']);
+        {{/isPathParameter}}
 
     {{/parameters}}
 
